@@ -1,0 +1,66 @@
+﻿1. What was the most common boy’s name in Maryland in 1991
+
+	SELECT NAME FROM BABYNAMES 
+	WHERE GENDER = 'M' AND US_STATE = 'MD' AND DATE_YEAR = 1991
+	ORDER BY NUM_BABIES DESC
+	FETCH FIRST 1 ROWS ONLY
+  
+
+2. In which year were the most baby boy’s named “Christopher” born in any state?
+	SELECT DATE_YEAR FROM BABYNAMES
+	WHERE GENDER = 'M' AND NAME = 'Christopher'
+	ORDER BY NUM_BABIES DESC
+	FETCH FIRST 1 ROWS ONLY
+
+3. In which year were the most baby girls named 'Rosemary' born in any state?  
+
+	SELECT DATE_YEAR FROM BABYNAMES
+	WHERE GENDER = 'F' AND NAME = 'Rosemary'
+	ORDER BY NUM_BABIES DESC
+	FETCH FIRST 1 ROWS ONLY
+
+4. In 2000, which baby names were used more than than 500 times in Maryland
+  
+	SELECT NAME, NUM_BABIES
+	FROM BABYNAMES
+	WHERE US_STATE = 'MD' AND DATE_YEAR = 2000 AND NUM_BABIES > 500
+
+
+5. In 2014, which state had the fewest boys named “Xavier”
+.   
+	SELECT US_STATE FROM BABYNAMES
+	WHERE GENDER = 'M' AND NAME = 'Xavier' AND DATE_YEAR = 2014
+	ORDER BY NUM_BABIES ASC
+	FETCH FIRST 1 ROW ONLY
+
+6. In 1997, which state had the most girls named “Hannah”
+  
+	SELECT US_STATE FROM BABYNAMES
+	WHERE GENDER = 'F' AND NAME = 'Hannah' AND DATE_YEAR = 1997
+	ORDER BY NUM_BABIES DESC
+	FETCH FIRST 1 ROW ONLY
+
+7. Write a query to add the following row:
+   1. id: 10000000
+   2. name: ‘Joseph’
+   3. date_year: 2016
+   4. gender: ‘M’
+   5. us_state: ‘PA’
+   6. num_babies: ‘476’
+
+	INSERT INTO BABYNAMES (ID, NAME, DATE_YEAR, GENDER, US_STATE, NUM_BABIES)
+	VALUES (10000000, 'Joseph', 2016, 'M', 'PA', 476)
+
+8. Write a query to delete the row you just added.
+
+	DELETE FROM BABYNAMES
+	WHERE ID = 10000000
+  
+9. (Bonus) What was the most common boy’s name across the United States in 1991
+	
+	SELECT NAME, SUM(UM_BABIES) AS TOTAL_BABIES
+	FROM BABYNAMES
+	WHERE GENDER = 'M' AND DATE_YEAR = 1991
+	GROUP BY NAME
+	ORDER BY TOTAL_BABIES DESC
+	FETCH FIRST 1 ROWS ONLY
